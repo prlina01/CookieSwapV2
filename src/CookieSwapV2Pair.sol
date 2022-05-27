@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 import "solmate/tokens/ERC20.sol";
 import "./libraries/Math.sol";
@@ -17,9 +18,10 @@ error InsufficientOutputAmount();
 error InvalidK();
 error InsufficientLiquidity();
 error BalanceOverflow();
+error AlreadyInitialized();
 
 
-contract PuniswapV2Pair is ERC20, Math {
+contract CookieSwapV2Pair is ERC20, Math {
 
     using UQ112x112 for uint224;
 
@@ -46,7 +48,7 @@ contract PuniswapV2Pair is ERC20, Math {
     );
 
     constructor(address token0_, address token1_)
-    ERC20("PuniswapV2 Pair", "PUNIV2", 18)
+    ERC20("CookieSwapV2 Pair", "CSV2", 18)
     {
         token0 = token0_;
         token1 = token1_;
@@ -146,6 +148,15 @@ contract PuniswapV2Pair is ERC20, Math {
         {
             return (uint112(reserve0), uint112(reserve1), 0);
         }
+
+    function initialize(address token0_, address token1_) public {
+        if (token0 != address(0) || token1 != address(0))
+            revert AlreadyInitialized();
+
+        token0 = token0_;
+        token1 = token1_;
+    }
+
 
     function _safeTransfer(address token, address to, uint256 value) private {
         (bool success, bytes memory data) = token.call(

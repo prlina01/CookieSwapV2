@@ -2,7 +2,7 @@
 pragma solidity ^0.8.10;
 
 import "ds-test/test.sol";
-import "../PuniswapV2Pair.sol";
+import "../CookieSwapV2Pair.sol";
 import 'src/mocks/ERC20Mintable.sol';
 
 interface Vm {
@@ -15,17 +15,17 @@ interface Vm {
     function warp(uint256) external;
 }
 
-contract PuniswapV2PairTest is DSTest {
+contract CookieSwapV2PairTest is DSTest {
     Vm vm = Vm(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
     ERC20Mintable token0;
     ERC20Mintable token1;
-    PuniswapV2Pair pair;
+    CookieSwapV2Pair pair;
     TestUser testUser;
 
     function setUp() public {
         token0 = new ERC20Mintable("Token A", "TKNA");
         token1 = new ERC20Mintable("Token B", "TKNB");
-        pair = new PuniswapV2Pair(address(token0), address(token1));
+        pair = new CookieSwapV2Pair(address(token0), address(token1));
 
         token0.mint(10 ether, address(this));
         token1.mint(10 ether, address(this));
@@ -137,10 +137,10 @@ contract TestUser {
         ERC20(token0Address_).transfer(pairAddress_, amount0_);
         ERC20(token1Address_).transfer(pairAddress_, amount1_);
 
-        PuniswapV2Pair(pairAddress_).mint();
+        CookieSwapV2Pair(pairAddress_).mint();
     }
 
     function withdrawLiquidity(address pairAddress_) public {
-        PuniswapV2Pair(pairAddress_).burn();
+        CookieSwapV2Pair(pairAddress_).burn();
     }
 }
