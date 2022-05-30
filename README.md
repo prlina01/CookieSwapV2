@@ -14,6 +14,6 @@
 * **Pair contract** _(low level)_: Adding and removing liquidity, token swapping, price oracle with _time-weighted average price_ algorithm, UQ112.112 numbers.
 * **Factory contact**: Generate and store token pairs, eip-1014(CREATE2 opcode).
 * **Router contract** _(high level)_: Serves as the entrypoint for most user applications. This contract makes it easier to create pairs, add and remove liquidity, and perform actual swaps.
-* **Library contract**: 
+* **Library contract**: Calculates the swap amount. 
 
 **To be continued...**
